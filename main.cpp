@@ -18,11 +18,11 @@ void testLength()
 void testTypeAt()
 {
     std::cout << "== TypeAt ==" << std::endl;
-    PB((IsSame_v<TL::TypeAt_t<T1, 0>, int>));
-    PB((IsSame_v<TL::TypeAt_t<T1, 1>, int>));
-    PB((IsSame_v<TL::TypeAt_t<T1, 2>, int*>));
+    PB(( IsSame_v<TL::TypeAt_t<T1, 0>, int>));
+    PB(( IsSame_v<TL::TypeAt_t<T1, 1>, int>));
+    PB(( IsSame_v<TL::TypeAt_t<T1, 2>, int*>));
     PB((!IsSame_v<TL::TypeAt_t<T1, 5>, int*>));
-    PB((IsSame_v<TL::TypeAt_t<T1, 5>, bool>));
+    PB(( IsSame_v<TL::TypeAt_t<T1, 5>, bool>));
 }
 
 void testIndexOf()
@@ -35,37 +35,30 @@ void testIndexOf()
     PB((TL::IndexOf_v<T3, char*> == 0));
 }
 
-template <typename T1, typename T2>
-void debug(T1, T2)
-{}
-
 void testAppend()
 {
     std::cout << "== Append ==" << std::endl;
-    PB((IsSame_v<TL::TypeList<int, int, int*, char, double, bool, char>, TL::Append_t<T1, char> >));
-
-    debug(TL::TypeList<int, int, int*, char, double, bool, char>(), TL::Append_t<T1, char>() );
-
-    PB((IsSame_v<TL::TypeList<unsigned char, unsigned short, unsigned int, unsigned long int, unsigned long long int, char>, TL::Append_t<T2, char> >));
-    PB((IsSame_v<TL::TypeList<char*, char>, TL::Append_t<T3, char> >));
+    PB((IsSameTypeList_v<TL::TypeList<int, int, int*, char, double, bool, char>, TL::Append_t<T1, char> >));
+    PB((IsSameTypeList_v<TL::TypeList<unsigned char, unsigned short, unsigned int, unsigned long int, unsigned long long int, char>, TL::Append_t<T2, char> >));
+    PB((IsSameTypeList_v<TL::TypeList<char*, char>, TL::Append_t<T3, char> >));
 }
 
 void testEraseOne()
 {
     std::cout << "== EraseOne ==" << std::endl;
-    PB((IsSame_v<TL::TypeList<int, int*, char, double, bool>, TL::EraseOne_t<T1, int> >));
-    PB((IsSame_v<TL::TypeList<int, int, char, double, bool>, TL::EraseOne_t<T1, int*> >));
-    PB((IsSame_v<TL::TypeList<int, int, int*, char, double>, TL::EraseOne_t<T1, bool> >));
-    PB((IsSame_v<TL::NullType, TL::EraseOne_t<T3, char*> >));
+    PB((IsSameTypeList_v<TL::TypeList<int, int*, char, double, bool>, TL::EraseOne_t<T1, int> >));
+    PB((IsSameTypeList_v<TL::TypeList<int, int, char, double, bool>, TL::EraseOne_t<T1, int*> >));
+    PB((IsSameTypeList_v<TL::TypeList<int, int, int*, char, double>, TL::EraseOne_t<T1, bool> >));
+    PB((IsSameTypeList_v<TL::NullType, TL::EraseOne_t<T3, char*> >));
 }
 
 void testEraseAll()
 {
     std::cout << "== EraseAll ==" << std::endl;
-    PB((IsSame_v<TL::TypeList<int*>, TL::EraseAll_t<TL::TypeList<int, int, int*, int>, int> >));
-    PB((IsSame_v<TL::TypeList<bool, char>, TL::EraseAll_t<TL::TypeList<bool, char, int*>, int> >));
-    PB((IsSame_v<TL::TypeList<bool>, TL::EraseAll_t<TL::TypeList<int, bool>, int> >));
-    PB((IsSame_v<TL::NullType, TL::EraseAll_t<TL::TypeList<int, int>, int> >));
+    PB(( IsSameTypeList_v<TL::TypeList<int*>, TL::EraseAll_t<TL::TypeList<int, int, int*, int>, int> >));
+    PB((!IsSameTypeList_v<TL::TypeList<bool, char>, TL::EraseAll_t<TL::TypeList<bool, char, int*>, int> >));
+    PB(( IsSameTypeList_v<TL::TypeList<bool>, TL::EraseAll_t<TL::TypeList<int, bool>, int> >));
+    PB(( IsSameTypeList_v<TL::NullType, TL::EraseAll_t<TL::TypeList<int, int>, int> >));
 }
 
 int main()
